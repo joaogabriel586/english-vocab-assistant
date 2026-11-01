@@ -28,7 +28,14 @@ def get_video_id(url):
 link = input("Digite o link do video: ")
 meu_id = get_video_id(link)
 
-legenda = ytt_api.fetch(meu_id, languages=["en"])
+try:
+    legenda = ytt_api.fetch(meu_id, languages=["en"])
+
+except Exception:
+   print("Nâo foi possivel pegar a legenda, tente outro video.")
+   exit()
+else:
+   print("Busca de legenda, bem sucedida!!")
 
 counts = {}
 
