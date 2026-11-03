@@ -7,9 +7,9 @@ def conectar ():
     conn.row_factory = sqlite3.Row
     return conn
 
-def criar_tabela ():
+def criar_tabela_videos ():
     conn = conectar()
-    conn.execute("""CREATE TABLE IF NOT EXISTS videos (
+    conn.execute(""" CREATE TABLE IF NOT EXISTS videos (
    id INTEGER PRIMARY KEY,
    youtube_id TEXT NOT NULL UNIQUE,
    url TEXT NOT NULL,
@@ -18,4 +18,20 @@ def criar_tabela ():
     conn.commit()
     conn.close()
 
-criar_tabela()
+def criar_tabela_palavras ():
+    conn = conectar()
+    conn.execute(""" CREATE TABLE IF NOT EXISTS palavras (
+    id INTEGER PRIMARY KEY,
+    palavra TEXT NOT NULL UNIQUE,
+    conhecida INTEGER NOT NULL ) """)
+    conn.commit()
+    conn.close()
+
+criar_tabela_palavras()
+criar_tabela_videos()
+
+conn = conectar()
+resultado = conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
+for linha in resultado:
+    print(linha["name"])
+conn.close()
