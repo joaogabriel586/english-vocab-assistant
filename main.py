@@ -37,6 +37,8 @@ except Exception:
 else:
    print("Busca de legenda, bem sucedida!!")
 
+print(legenda)
+
 counts = {}
 
 for pedacinho in legenda:

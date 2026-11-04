@@ -27,8 +27,21 @@ def criar_tabela_palavras ():
     conn.commit()
     conn.close()
 
-criar_tabela_palavras()
+def criar_tabela_aparicoes ():
+    conn = conectar()
+    conn.execute(""" CREATE TABLE IF NOT EXISTS aparicoes (
+    video_id INTEGER NOT NULL,
+    palavra_id INTEGER NOT NULL,
+    vezes INTEGER NOT NULL,
+    PRIMARY KEY (video_id, palavra_id),
+    FOREIGN KEY (video_id) REFERENCES videos (id),
+    FOREIGN KEY (palavra_id) REFERENCES palavras (id)) """)
+    conn.commit()
+    conn.close()
+
 criar_tabela_videos()
+criar_tabela_palavras()
+criar_tabela_aparicoes()
 
 conn = conectar()
 resultado = conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
